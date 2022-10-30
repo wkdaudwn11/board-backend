@@ -17,10 +17,10 @@ export const postBoard = async (req, res) => {
       message: null,
       data,
     });
-  } catch {
+  } catch (e) {
     res.status(200).json({
       success: false,
-      message: "Error",
+      message: e.message,
       data: null,
     });
   }
@@ -40,10 +40,10 @@ export const getBoardList = async (req, res) => {
       message: null,
       data: list,
     });
-  } catch {
+  } catch (e) {
     res.status(200).json({
       success: false,
-      message: "Error",
+      message: e.message,
       data: null,
     });
   }
@@ -60,10 +60,10 @@ export const getBoard = async (req, res) => {
       message: null,
       data,
     });
-  } catch {
+  } catch (e) {
     res.status(200).json({
       success: false,
-      message: "Error",
+      message: e.message,
       data: null,
     });
   }
@@ -80,10 +80,10 @@ export const deleteBoard = async (req, res) => {
       message: null,
       data: null,
     });
-  } catch {
+  } catch (e) {
     res.status(200).json({
       success: false,
-      message: "Error",
+      message: e.message,
       data: null,
     });
   }
@@ -107,10 +107,10 @@ export const patchBoard = async (req, res) => {
       message: null,
       data,
     });
-  } catch {
+  } catch (e) {
     res.status(200).json({
       success: false,
-      message: "Error",
+      message: e.message,
       data: null,
     });
   }

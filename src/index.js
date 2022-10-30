@@ -5,6 +5,7 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 
 import boardRouter from "./routers/board";
+import userRouter from "./routers/user";
 
 require("dotenv").config();
 
@@ -26,6 +27,7 @@ app.use(helmet());
 app.use(morgan("dev"));
 
 app.use("/board", boardRouter);
+app.use("/user", userRouter);
 
 const PORT = process.env.PORT || 4000;
 const handleListening = () =>
