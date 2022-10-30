@@ -4,7 +4,7 @@
   "description": "간단한 게시판 API를 제공하는 백엔드 서버입니다.",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --exec babel-node src/index.js --delay 2",
+    "start": "nodemon --exec babel-node src/index.js --delay 1",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "license": "ISC",
