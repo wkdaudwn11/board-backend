@@ -1,8 +1,8 @@
 import express from "express";
-import { home } from "../controllers/home";
+import { postBoard } from "../controllers/board";
 
 const router = express.Router();
 
-router.get("/", home);
+router.post("/", postBoard);
 
 export default router;
