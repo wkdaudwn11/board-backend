@@ -1,10 +1,10 @@
-import BoardSchema from "../models/board";
+import Board from "../models/board";
 
 export const postBoard = async (req, res) => {
   try {
     const { writer, title, content } = req.body;
 
-    const data = new BoardSchema({
+    const data = new Board({
       writer,
       title,
       content,
@@ -30,7 +30,7 @@ export const getBoardList = async (req, res) => {
   try {
     const { page, limit } = req.body;
 
-    const list = await BoardSchema.find()
+    const list = await Board.find()
       .sort({ created_at: -1 })
       .skip((page - 1) * limit)
       .limit(limit);
@@ -53,7 +53,7 @@ export const getBoard = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const data = await BoardSchema.findById({ _id: id });
+    const data = await Board.findById({ _id: id });
 
     res.status(200).json({
       success: true,
@@ -73,7 +73,7 @@ export const deleteBoard = async (req, res) => {
   try {
     const { id } = req.body;
 
-    await BoardSchema.findByIdAndDelete({ _id: id });
+    await Board.findByIdAndDelete({ _id: id });
 
     res.status(200).json({
       success: true,
@@ -93,7 +93,7 @@ export const patchBoard = async (req, res) => {
   try {
     const { id, writer, title, content } = req.body;
 
-    const data = await BoardSchema.findByIdAndUpdate(
+    const data = await Board.findByIdAndUpdate(
       { _id: id },
       {
         writer,
