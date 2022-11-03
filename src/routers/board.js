@@ -1,4 +1,5 @@
 import express from "express";
+
 import {
   postBoard,
   getBoard,
@@ -6,13 +7,14 @@ import {
   deleteBoard,
   patchBoard,
 } from "../controllers/board";
+import { loginCheck } from "../middlewares/auth";
 
 const router = express.Router();
 
-router.post("/", postBoard);
-router.get("/list", getBoardList);
-router.get("/:id", getBoard);
-router.delete("/", deleteBoard);
-router.patch("/", patchBoard);
+router.post("/", loginCheck, postBoard);
+router.get("/list", loginCheck, getBoardList);
+router.get("/:id", loginCheck, getBoard);
+router.delete("/", loginCheck, deleteBoard);
+router.patch("/", loginCheck, patchBoard);
 
 export default router;

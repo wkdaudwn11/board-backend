@@ -50,7 +50,7 @@ export const loginUser = async (req, res) => {
       email: user.email,
     };
 
-    const token = jwt.sign(payload, process.env.JWT_SECRET, {
+    const accessToken = jwt.sign(payload, process.env.JWT_SECRET, {
       algorithm: "HS256",
       expiresIn: "1d",
     });
@@ -58,7 +58,9 @@ export const loginUser = async (req, res) => {
     res.status(200).json({
       success: true,
       message: null,
-      data: token,
+      data: {
+        accessToken,
+      },
     });
   } catch (e) {
     res.status(200).json({
