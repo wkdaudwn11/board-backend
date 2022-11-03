@@ -1,3 +1,5 @@
+import jwt from "jsonwebtoken";
+
 import User from "../models/user";
 import { createHashedPassword, verifyPassword } from "../lib/auth";
 
@@ -44,12 +46,19 @@ export const loginUser = async (req, res) => {
 
     if (!verified) throw new Error("Password does not match.");
 
-    // todo JWT
+    const payload = {
+      email: user.email,
+    };
+
+    const token = jwt.sign(payload, process.env.JWT_SECRET, {
+      algorithm: "HS256",
+      expiresIn: "1d",
+    });
 
     res.status(200).json({
       success: true,
       message: null,
-      data: user,
+      data: token,
     });
   } catch (e) {
     res.status(200).json({
