@@ -8,7 +8,7 @@ export const joinUser = async (req, res) => {
     const { email, password, name, age } = req.body;
     const checkEmail = await User.findOne({ email });
 
-    if (email) throw new Error("email already exists");
+    if (checkEmail) throw new Error("email already exists");
 
     const { hashedPassword, salt } = await createHashedPassword(password);
     const data = new User({
