@@ -2,10 +2,11 @@ import Board from "../models/board";
 
 export const postBoard = async (req, res) => {
   try {
-    const { writer, title, content } = req.body;
+    const { title, content } = req.body;
+    const { user } = res.locals;
 
     const data = new Board({
-      writer,
+      writer: user.name,
       title,
       content,
     });

@@ -1,5 +1,7 @@
 import jwt from "jsonwebtoken";
 
+import User from "../models/user";
+
 export const loginCheck = async (req, res, next) => {
   try {
     if (!req.headers.authorization)
@@ -16,6 +18,7 @@ export const loginCheck = async (req, res, next) => {
 
     if (today > exp) throw new Error("accessToken has expired.");
 
+    res.locals.user = await User.findOne({ email: decoded.email });
     next();
   } catch (e) {
     res.status(200).json({
