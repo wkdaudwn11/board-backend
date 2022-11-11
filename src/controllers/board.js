@@ -56,13 +56,18 @@ export const getBoardList = async (req, res) => {
 export const getBoard = async (req, res) => {
   try {
     const { id } = req.params;
-
+    const { user } = res.locals;
     const data = await Board.findById({ _id: id });
+    const isMyBoard = user._id.toString() === data.userId.toString();
+    console.log(data);
 
     res.status(200).json({
       success: true,
       message: null,
-      data,
+      data: {
+        ...data._doc,
+        isMyBoard,
+      },
     });
   } catch (e) {
     res.status(200).json({
