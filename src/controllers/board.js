@@ -1,4 +1,5 @@
 import Board from "../models/board";
+import User from "../models/user";
 
 export const postBoard = async (req, res) => {
   try {
@@ -6,7 +7,9 @@ export const postBoard = async (req, res) => {
     const { user } = res.locals;
 
     const data = new Board({
+      userId: user._id,
       writer: user.name,
+      email: user.email,
       title,
       content,
     });
@@ -73,6 +76,13 @@ export const getBoard = async (req, res) => {
 export const deleteBoard = async (req, res) => {
   try {
     const { id } = req.body;
+    const { user } = res.locals;
+    const findBoard = await Board.findById({ _id: id });
+
+    if (!findBoard) throw new Error("Board not found");
+
+    if (user._id.toString() !== findBoard.userId.toString())
+      throw new Error("Invalid user");
 
     await Board.findByIdAndDelete({ _id: id });
 
@@ -93,6 +103,13 @@ export const deleteBoard = async (req, res) => {
 export const patchBoard = async (req, res) => {
   try {
     const { id, writer, title, content } = req.body;
+    const { user } = res.locals;
+    const findBoard = await Board.findById({ _id: id });
+
+    if (!findBoard) throw new Error("Board not found");
+
+    if (user._id.toString() !== findBoard.userId.toString())
+      throw new Error("Invalid user");
 
     const data = await Board.findByIdAndUpdate(
       { _id: id },

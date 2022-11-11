@@ -4,6 +4,11 @@ const Schema = mongoose.Schema;
 
 const boardSchema = new Schema({
   id: mongoose.Schema.Types.ObjectId,
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: "users",
+    required: true,
+  },
   writer: { type: String, default: null },
   title: { type: String, required: true },
   content: { type: String, default: null },
