@@ -8,10 +8,13 @@ import {
   patchBoard,
 } from "../controllers/board";
 import { loginCheck } from "../middlewares/auth";
+import { validate, postBoardValidationRules } from "../middlewares/validate";
 
 const router = express.Router();
 
-router.post("/", loginCheck, postBoard);
+router.use("/", loginCheck, postBoardValidationRules(), validate);
+router.post("/", postBoard);
+
 router.get("/list", loginCheck, getBoardList);
 router.get("/:id", loginCheck, getBoard);
 router.delete("/", loginCheck, deleteBoard);

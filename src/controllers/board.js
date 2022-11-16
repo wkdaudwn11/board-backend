@@ -1,5 +1,4 @@
 import Board from "../models/board";
-import User from "../models/user";
 
 export const postBoard = async (req, res) => {
   try {
